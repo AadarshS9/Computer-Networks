@@ -27,7 +27,7 @@ int main()
 		printf("Error \n");
 	
 	addr_size = sizeof(serverStorage);
-	newSocket = accept(welcomeSocket, (struct sockaddr *) &serverStorage, 					 &addr_size);
+	newSocket = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
 	
 	while(1)
 	{
