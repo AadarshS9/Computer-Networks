@@ -28,10 +28,8 @@ int main() {
         printf("Error\n");
         return 1; // Exit if there's an error in listening
     }
-
     addr_size = sizeof(serverStorage);
     newSocket = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
-
     // Receive filename length from client
     size_t filename_len;
     recv(newSocket, &filename_len, sizeof(filename_len), 0);
@@ -39,7 +37,6 @@ int main() {
     recv(newSocket, filename, filename_len, 0);
     filename[filename_len] = '\0'; // Null-terminate the string
     printf("Received filename: %s\n", filename);
-
     // Open the file for writing
     file = fopen(filename, "w");
     if (file == NULL) {
@@ -50,14 +47,12 @@ int main() {
     }
     // Display the name of the file
     printf("Content of file (%s):\n", filename);
-
     // Receive file contents from client and write to file
     ssize_t bytes_received;
     while ((bytes_received = recv(newSocket, buffer, sizeof(buffer), 0)) > 0) {
         fwrite(buffer, 1, bytes_received, file); // Writing to file
         printf("%.*s", (int)bytes_received, buffer); // Displaying received content
     }
-
     if (bytes_received == -1) {
         perror("Error receiving file content");
     }
