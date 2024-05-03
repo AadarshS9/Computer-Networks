@@ -1,5 +1,4 @@
 //FTP SERVER USING TCP
-
 #include <stdio.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -36,11 +35,9 @@ int main() {
     // Receive filename length from client
     size_t filename_len;
     recv(newSocket, &filename_len, sizeof(filename_len), 0);
-
     // Receive filename from client
     recv(newSocket, filename, filename_len, 0);
     filename[filename_len] = '\0'; // Null-terminate the string
-
     printf("Received filename: %s\n", filename);
 
     // Open the file for writing
@@ -51,7 +48,6 @@ int main() {
         close(welcomeSocket);
         return 1;
     }
-
     // Display the name of the file
     printf("Content of file (%s):\n", filename);
 
@@ -65,11 +61,9 @@ int main() {
     if (bytes_received == -1) {
         perror("Error receiving file content");
     }
-
     fclose(file);
     close(newSocket);
     close(welcomeSocket);
 
     return 0;
 }
-
